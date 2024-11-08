@@ -4,15 +4,19 @@ def menu():
 Digite a opção desejada:
 1 - Cadastrar cliente
 2 - Clientes
-3 - Pedidos
-4 - Busca
-5 - Sair       
+3 - Cadastrar produto
+4 - Estoque
+5 -        
         """)
     opcao = input().lower()
     if (opcao == "1" or opcao == "cadastrar cliente" or opcao == "cadastrar"):
         menu2()
     elif(opcao == "2" or opcao == "clientes"):
         menu3()
+    elif(opcao == "3" or opcao == "cadastrar produto"):
+        menu4()
+    elif(opcao == "4" or opcao == "estoque"):
+        menu5()
     elif(opcao == "5" or opcao == "sair"):
         print("você saiu")
             #break
@@ -35,7 +39,7 @@ def menu2():
         if (cpfVerificado and idade >= 18 and nome == str):
             print("Cadastro concluido")
             with open('projeto//clientes.txt', "a")as arquivo:
-                arquivo.write(f"{nome}, {cpf}, {idade}\n")
+                arquivo.write(f"Nome: {nome}, CPf: {cpf}, Idade: {idade}\n")
             break
         elif(len(cpfCorreto) <11 and idade < 18):
             print("O CPF está incompleto e é menor de idade")
@@ -85,6 +89,24 @@ def menu3():
         menu()
     elif(voltar == "2" or voltar == "não"):
         print("Você saiu!")
-        
+       
+def menu4():
+    while(True):
+        print("Digite o produto:")
+        produto = str(input().lower().capitalize())
+        print("Digite o preço:")
+        precoProduto = float(input())
+        print("Digite a quantidade do produto:")
+        qtdProduto = int(input())
+        with open('projeto//estoque.txt', "a") as arquivo:
+            arquivo.write(f"{produto} {precoProduto} {qtdProduto}\n")
+        with open('projeto//estoque.txt', "r") as arquivo:
+            listaProduto = arquivo.readlines()
+            print(listaProduto)
+
+def menu5():
+    with open('projeto//estoque.txt', "r") as arquivo:
+        listaProduto = arquivo.readlines()
+        print(listaProduto)
 
 menu()
