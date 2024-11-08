@@ -25,7 +25,7 @@ Digite a opção desejada:
 def menu2():
     while(True):
         print("Digite o nome do cliente:")
-        nome = str(input().capitalize()) #deixa a primeira letra em maiusculo
+        nome = (input().capitalize()) #deixa a primeira letra em maiusculo
         print("Digite o CPF")
         cpf = (input())
         cpfN = "0123456789"
@@ -36,7 +36,7 @@ def menu2():
         print("Digite a idade:")
         idade = int(input())
         cpfVerificado = len(cpfCorreto) == 11
-        if (cpfVerificado and idade >= 18 and nome == str):
+        if (cpfVerificado and (idade >= 18) and (type(nome) == str)):
             print("Cadastro concluido")
             with open('projeto//clientes.txt', "a")as arquivo:
                 arquivo.write(f"Nome: {nome}, CPf: {cpf}, Idade: {idade}\n")
