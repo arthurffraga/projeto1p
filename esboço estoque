@@ -1,11 +1,11 @@
-lista =['Maracuja 2 10\n', 'Flocos 2.5 10\n', 'Morango 2 10\n', 'Goiaba 2 10\n']
+lista =['maracuja 2 10\n', 'flocos 2.5 10\n', 'morango 2 10\n', 'goiaba 2 10\n']
 
 v = ""
 for i in lista:
     v += i
 
 vv = v.split()
-posicao = input("Digite a posicao:").capitalize()
+posicao = input("Digite a posicao:").lower()
 posicaoLista = vv.index(posicao)
 print(posicaoLista)
 qtdM = posicaoLista + 2
