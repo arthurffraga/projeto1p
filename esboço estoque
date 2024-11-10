@@ -1,0 +1,34 @@
+lista =['Maracuja 2 10\n', 'Flocos 2.5 10\n', 'Morango 2 10\n', 'Goiaba 2 10\n']
+
+v = ""
+for i in lista:
+    v += i
+
+vv = v.split()
+posicao = input("Digite a posicao:").capitalize()
+posicaoLista = vv.index(posicao)
+print(posicaoLista)
+qtdM = posicaoLista + 2
+valor = vv[qtdM]
+print(qtdM)
+print(valor)
+#valorQtd = 
+vv.pop(qtdM)
+vv.insert(qtdM, str(int(valor) - 2))
+print(vv)
+conteudo = ""
+acumulador = 1
+for j in vv:
+    conteudo += j
+    conteudo += " "
+    if (acumulador % 3 == 0):
+        conteudo += "\n"
+    acumulador += 1
+
+with open('projeto//teste.txt', "w") as arquivo:
+    arquivo.write(conteudo)
+
+with open('projeto//teste.txt', "r") as ler:
+    ler2= ler.readlines()
+    for lerlinha in ler2:
+        print(lerlinha, end="")
