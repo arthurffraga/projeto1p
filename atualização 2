@@ -7,6 +7,7 @@ Digite a opção desejada:
 3 - Vendas
 4 - Sair""")
         opcao = input().lower()
+
         if (opcao == "1" or opcao == "clientes") :
             return(menuClientes())
         elif(opcao == "2" or opcao == "estoque"):
@@ -232,38 +233,40 @@ def menu6():
         for i in listaProdutos:
             listaStr += i
         listaDividida = listaStr.split()
-        print(listaDividida)
         print("Qual produto foi vendido?")
         produto = input().lower()
-        posicaoProduto = listaDividida.index(produto)
-        posicaoEstoque = posicaoProduto + 2
-        qtdEstoque = listaDividida[posicaoEstoque]
-        posicaoValor = posicaoProduto + 1
-        precoProduto = listaDividida[posicaoValor]
-        if (qtdEstoque == "0"):
-            print("O produto acabou")
-        elif(int(qtdEstoque) > 0):
-            print("Quantos foram vendidos?")
-            vendidos = int(input())
-            listaDividida.pop(posicaoEstoque)
-            listaDividida.insert(posicaoEstoque, str(int(qtdEstoque) - vendidos))
-            print(listaDividida)
-            arquivoNovo = ""
-            acumulador = 1
-            for linha in listaDividida:
-                arquivoNovo += linha
-                arquivoNovo += " "
-                if(acumulador % 3 == 0):
-                    arquivoNovo += "\n"
-                acumulador += 1
-            print(arquivoNovo)
-            with open('projeto//estoqueteste.txt', "w") as novoEstoque:
-                novoEstoque.write(arquivoNovo)
-            #with open('projeto//estoque.txt', "w") as novoEstoque:
-                #novoEstoque.write(arquivoNovo)
-            with open('projeto//vendasteste.txt', "a") as vendas:
-                vendas.write(f"Produto:{produto}, Vendidos:{vendidos}, Valor:{precoProduto}, Valor total: {float(precoProduto) * vendidos} reais\n")
-            break
+        if (produto in listaDividida):
+            posicaoProduto = listaDividida.index(produto)
+            posicaoEstoque = posicaoProduto + 2
+            qtdEstoque = listaDividida[posicaoEstoque]
+            posicaoValor = posicaoProduto + 1
+            precoProduto = listaDividida[posicaoValor]
+            if (int(qtdEstoque) <= 0):
+                print("O produto acabou")
+            elif(int(qtdEstoque) > 0):
+                print("Quantos foram vendidos?")
+                vendidos = int(input())
+                listaDividida.pop(posicaoEstoque)
+                listaDividida.insert(posicaoEstoque, str(int(qtdEstoque) - vendidos))
+                print(listaDividida)
+                arquivoNovo = ""
+                acumulador = 1
+                for linha in listaDividida:
+                    arquivoNovo += linha
+                    arquivoNovo += " "
+                    if(acumulador % 3 == 0):
+                        arquivoNovo += "\n"
+                    acumulador += 1
+                print(arquivoNovo)
+                with open('projeto//estoqueteste.txt', "w") as novoEstoque:
+                    novoEstoque.write(arquivoNovo)
+                #with open('projeto//estoque.txt', "w") as novoEstoque:
+                    #novoEstoque.write(arquivoNovo)
+                with open('projeto//vendasteste.txt', "a") as vendas:
+                    vendas.write(f"Produto:{produto}, Vendidos:{vendidos}, Valor:{precoProduto}, Valor total: {float(precoProduto) * vendidos} reais\n")
+                break
+        else:
+            print("o produto não está cadastrado")
         print("""Deseja cadastrar outra venda?
 1 - sim          
 2 - não""")
