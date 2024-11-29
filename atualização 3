@@ -29,17 +29,19 @@ def menuClientes():
 3 - Voltar ao menu principal
 4 - Atualizar
 5 - Excluir
- - Sair """)
+6 - Sair """)
         opcao = input().lower()
         if (opcao == "1" or opcao == "cadastrar cliente"):
-            return(menu2())
+            return(cadastrarCliente())
         elif(opcao == "2" or opcao == "lista de clientes"):
             return(menu3())
         elif(opcao == "3" or opcao == "voltar ao menu principal" or opcao == "voltar"):
             return(menu())      
         elif(opcao == "4" or opcao == "atualizar"):
-            return(atualizarClientes())  
-        elif(opcao == "" or opcao == "sair"):
+            return(atualizarClientes())
+        elif(opcao == "5" or opcao == "atualizar"):
+            return()  
+        elif(opcao == "6" or opcao == "sair"):
             print("Você saiu!")
             break
         else:
@@ -50,7 +52,9 @@ def menuEstoque():
 1 - Cadastrar produto
 2 - Estoque
 3 - Voltar ao menu principal
-4 - Sair """)
+4 - Atualizar
+5 - Excluir
+6 - Sair """)
         opcao = input().lower()
         if (opcao == "1" or opcao == "cadastrar produto"):
             return(menu4())
@@ -58,7 +62,9 @@ def menuEstoque():
             return(menu5())
         elif(opcao == "3" or opcao == "voltar ao menu principal" or opcao == "voltar"):
             return(menu())
-        elif(opcao == "4" or opcao == "sair"):
+        elif(opcao == "4" or opcao == "atualizar"):
+            return(atualizarEstoque())
+        elif(opcao == "6" or opcao == "sair"):
             print("Você saiu!")
             break
         else:
@@ -70,7 +76,9 @@ def menuVendas():
 1 - Cadastrar venda
 2 - Relatorio de vendas
 3 - Voltar ao menu principal
-4 - Sair """)
+4 - Atualizar
+5 - Excluir
+6 - Sair """)
         opcao = input().lower()
         if (opcao == "1" or opcao == "cadastrar venda"):
             return(menu6())
@@ -78,7 +86,11 @@ def menuVendas():
             return(menu7())
         elif(opcao == "3" or opcao == "voltar ao menu principal" or opcao == "voltar"):
             return(menu())
-        elif(opcao == "4" or opcao == "sair"):
+        elif(opcao == "4" or opcao == "atualizar"):
+            return(atualizarVendas())
+        elif(opcao == "5" or opcao == "excluir"):
+            pass        
+        elif(opcao == "6" or opcao == "sair"):
             print("Você saiu!")
             break
         else:
@@ -86,24 +98,27 @@ def menuVendas():
 
 def atualizarClientes():
     while(True):
-        with open('projeto//clientes.txt', "r") as arquivo:
-            listaProdutos= arquivo.readlines()
-            for linhas in listaProdutos:
+        with open('projeto//clientesteste.txt', "r") as arquivo:
+            listaClientes= arquivo.readlines()
+            for linhas in listaClientes:
                 print(linhas, end="")
         listaStr = ""
-        for i in listaProdutos:
+        for i in listaClientes:
             listaStr += i
         listaDividida = listaStr.split()
         print("Quem você deseja atualizar?")
         cliente = input().capitalize()
-        print("O que você deseja atualizar?")
+        print("""O que você deseja atualizar?
+1 - Nome
+2 - Cpf
+3 - Idade""")
         atualizacao = input().lower()
-        if (atualizacao == "nome"):
+        if (atualizacao == "nome" or atualizacao == "1"):
             print("Digite o novo nome:")
-            novoIdade = input().capitalize()
+            novoNome = input().capitalize()
             posicaoCliente = listaDividida.index(cliente)
             listaDividida.pop(posicaoCliente)
-            listaDividida.insert(posicaoCliente, novoIdade)
+            listaDividida.insert(posicaoCliente, novoNome)
             print(listaDividida)
             arquivoNovo = ""
             acumulador = 1
@@ -114,14 +129,16 @@ def atualizarClientes():
                     arquivoNovo += "\n"
                 acumulador += 1
             print(arquivoNovo)
+            with open('projeto//clientesteste.txt', "w")as arquivoCliente:
+                arquivoCliente.write(arquivoNovo)
             break
-        elif (atualizacao == "cpf"):
+        elif (atualizacao == "cpf" or atualizacao == "2"):
             print("Digite o novo cpf:")
-            novoIdade = input().capitalize()
+            novoCpf = input().capitalize()
             posicaoCliente = listaDividida.index(cliente)
             posicaoIdade = posicaoCliente + 1
             listaDividida.pop(posicaoIdade)
-            listaDividida.insert(posicaoIdade, novoIdade)
+            listaDividida.insert(posicaoIdade, novoCpf)
             print(listaDividida)
             arquivoNovo = ""
             acumulador = 1
@@ -132,14 +149,16 @@ def atualizarClientes():
                     arquivoNovo += "\n"
                 acumulador += 1
             print(arquivoNovo)
+            with open('projeto//clientesteste.txt', "w")as arquivoCliente:
+                arquivoCliente.write(arquivoNovo)
             break
-        elif (atualizacao == "idade"):
+        elif (atualizacao == "idade" or atualizacao == "3"):
             print("Digite a nova idade:")
-            novoIdade = input()
+            novaIdade = int(input())
             posicaoCliente = listaDividida.index(cliente)
             posicaoIdade = posicaoCliente + 2
             listaDividida.pop(posicaoIdade)
-            listaDividida.insert(posicaoIdade, novoIdade)
+            listaDividida.insert(posicaoIdade, str(novaIdade))
             print(listaDividida)
             arquivoNovo = ""
             acumulador = 1
@@ -150,8 +169,196 @@ def atualizarClientes():
                     arquivoNovo += "\n"
                 acumulador += 1
             print(arquivoNovo)
-            break             
-def menu2():
+            with open('projeto//clientesteste.txt', "w")as arquivoCliente:
+                arquivoCliente.write(arquivoNovo)
+            break
+    print("""Deseja voltar para o menu?
+1- Sim
+2- Não""")
+    while(True):
+        voltar = input().lower()
+        if (voltar == "1" or voltar == "sim"):
+            return(menuClientes())
+        elif(voltar == "2" or voltar == "não" or voltar == "nao"):
+            print("Você saiu!")
+            break
+        else:
+            print("Digite uma opção:")
+    return
+def atualizarEstoque():
+    while(True):
+        with open('projeto//estoqueteste.txt', "r") as arquivo:
+            listaClientes= arquivo.readlines()
+            for linhas in listaClientes:
+                print(linhas, end="")
+        listaStr = ""
+        for i in listaClientes:
+            listaStr += i
+        listaDividida = listaStr.split()
+        print("Qual produto você deseja atualizar?")
+        produto = input().lower()
+        print("""O que você deseja atualizar?
+1 - Sabor
+2 - Preço
+3 - Quantidade""")
+        atualizacao = input().lower()
+        if (atualizacao == "sabor" or atualizacao == "1"):
+            print("Digite o novo sabor:")
+            novoSabor= input().lower()
+            posicaoSabor = listaDividida.index(produto)
+            listaDividida.pop(posicaoSabor)
+            listaDividida.insert(posicaoSabor, novoSabor)
+            print(listaDividida)
+            arquivoNovo = ""
+            acumulador = 1
+            for linha in listaDividida:
+                arquivoNovo += linha
+                arquivoNovo += " "
+                if(acumulador % 3 == 0):
+                    arquivoNovo += "\n"
+                acumulador += 1
+            print(arquivoNovo)
+            with open('projeto//estoqueteste.txt', "w")as arquivoCliente:
+                arquivoCliente.write(arquivoNovo)
+            break
+        elif (atualizacao == "2 "or atualizacao == "preço" or atualizacao == "preco"):
+            print("Digite o novo preço:")
+            novoCpf = input().lower()
+            posicaoSabor = listaDividida.index(produto)
+            posicaoPreco = posicaoSabor + 1
+            listaDividida.pop(posicaoPreco)
+            listaDividida.insert(posicaoPreco, novoCpf)
+            print(listaDividida)
+            arquivoNovo = ""
+            acumulador = 1
+            for linha in listaDividida:
+                arquivoNovo += linha
+                arquivoNovo += " "
+                if(acumulador % 3 == 0):
+                    arquivoNovo += "\n"
+                acumulador += 1
+            print(arquivoNovo)
+            with open('projeto//estoqueteste.txt', "w")as arquivoCliente:
+                arquivoCliente.write(arquivoNovo)
+            break
+        elif (atualizacao =="3" or atualizacao == "quantidade"):
+            print("Digite a nova quantidade:")
+            novaQtd = int(input())
+            posicaoSabor = listaDividida.index(produto)
+            posicaoQtd = posicaoSabor + 2
+            listaDividida.pop(posicaoQtd)
+            listaDividida.insert(posicaoQtd, str(novaQtd))
+            print(listaDividida)
+            arquivoNovo = ""
+            acumulador = 1
+            for linha in listaDividida:
+                arquivoNovo += linha
+                arquivoNovo += " "
+                if(acumulador % 3 == 0):
+                    arquivoNovo += "\n"
+                acumulador += 1
+            print(arquivoNovo)
+            with open('projeto//estoqueteste.txt', "w")as arquivoCliente:
+                arquivoCliente.write(arquivoNovo)
+            break
+    print("""Deseja voltar para o menu?
+1- Sim
+2- Não""")
+    while(True):
+        voltar = input().lower()
+        if (voltar == "1" or voltar == "sim"):
+            return(menuClientes())
+        elif(voltar == "2" or voltar == "não" or voltar == "nao"):
+            print("Você saiu!")
+            break
+        else:
+            print("Digite uma opção:")
+    return
+def atualizarVendas():
+    while(True):
+        with open('projeto//vendasteste.txt', "r") as arquivo:
+            listaVendas= arquivo.readlines()
+            for linhas in listaVendas:
+                print(linhas, end="")
+        #listaStr = ""
+        #for i in listaClientes:
+            #listaStr += i
+        #listaDividida = listaStr.split()
+        print("")
+        print("Qual linha você deseja atualizar?")
+        produto = int(input())
+        itemVendas = listaVendas[produto - 1]
+        print("""O que você deseja atualizar?
+1 - Produto
+2 - Vendidos""")
+        print(itemVendas)
+        listaDividida = itemVendas.split()
+        print(listaDividida)
+        opcao = input().lower()
+        if (opcao == "produto" or opcao == "1"):
+            print("Digite o novo produto:")
+            novaQtd= input().lower()
+            listaDividida.pop(1)
+            listaDividida.insert(1, novaQtd)
+            print(listaDividida)
+            listaNova = ""
+            acumulador = 1
+            for linha in listaDividida:
+                listaNova += linha
+                listaNova += " "
+                if(acumulador == 10):
+                    listaNova += "\n"
+                acumulador += 1
+            listaVendas.pop(produto - 1)
+            listaVendas.insert(produto - 1, listaNova)
+            arquivoNovo = "".join(listaVendas)
+            print(arquivoNovo)
+            with open('projeto//vendasteste.txt', "w")as arquivoCliente:
+                arquivoCliente.write(arquivoNovo)
+            with open('projeto//vendasteste.txt', "r")as arquivo2:
+                ler = arquivo2.read()
+                print(ler)
+            break
+        elif(opcao == "2" or opcao == "vendidos"):
+            print("Digite quantos foram vendidos:")
+            novaQtd= int(input())
+            listaDividida.pop(3)
+            listaDividida.insert(3, str(novaQtd))
+            listaDividida.pop(8)
+            listaDividida.insert(8, str(novaQtd * 2.5))            
+            print(listaDividida)
+            listaNova = ""
+            acumulador = 1
+            for linha in listaDividida:
+                listaNova += linha
+                listaNova += " "
+                if(acumulador == 10):
+                    listaNova += "\n"
+                acumulador += 1
+            listaVendas.pop(produto - 1)
+            listaVendas.insert(produto - 1, str(listaNova))
+            arquivoNovo = "".join(listaVendas)
+            print(arquivoNovo)
+            with open('projeto//vendasteste.txt', "w")as arquivoCliente:
+                arquivoCliente.write(arquivoNovo)
+            with open('projeto//vendasteste.txt', "r")as arquivo2:
+                ler = arquivo2.read()
+                print(ler)
+            break
+    print("""Deseja voltar para o menu?
+1- Sim
+2- Não""")
+    while(True):
+        voltar = input().lower()
+        if (voltar == "1" or voltar == "sim"):
+            return(menuClientes())
+        elif(voltar == "2" or voltar == "não" or voltar == "nao"):
+            print("Você saiu!")
+            break
+        else:
+            print("Digite uma opção:")
+    return           
+def cadastrarCliente():
     while(True):
         print("Digite o nome do cliente:")
         nome = str(input().capitalize()) #deixa a primeira letra em maiusculo
@@ -168,7 +375,7 @@ def menu2():
         if (cpfVerificado and (idade >= 18) and (nome.isalpha()) == True):
             print("Cadastro concluido")
             with open('projeto//clientes.txt', "a")as arquivo:
-                arquivo.write(f"{nome}, {cpf}, {idade}\n")
+                arquivo.write(f"{nome} {cpf} {idade}\n")
             break
         elif(len(cpfCorreto) <11 and idade < 18):
             print("O CPF está incompleto e é menor de idade")
@@ -210,7 +417,7 @@ def menu2():
 def menu3():
     print("Clientes cadastrados:")
     print("")
-    with open('projeto//clientes.txt', "r") as arquivo:
+    with open('projeto//clientesteste.txt', "r") as arquivo:
         linha = arquivo.readlines()
         for linhas in linha:
             print(linhas, end = "")
@@ -238,7 +445,7 @@ def menu4():
         print("Digite a quantidade do produto:")
         qtdProduto = int(input())
         if (qtdProduto > 0):
-            with open('projeto//estoque.txt', "a") as arquivo:
+            with open('projeto//estoqueteste.txt', "a") as arquivo:
                 arquivo.write(f"{produto} {precoProduto} {qtdProduto}\n")
                 print("Produto cadastrado")
                 break
@@ -275,7 +482,7 @@ def menu4():
 def menu5():
     print("")
     print("Estoque:")
-    with open('projeto//estoque.txt', "r") as arquivo:
+    with open('projeto//estoqueteste.txt', "r") as arquivo:
         listaProduto = arquivo.readlines()
         for linhas in listaProduto:
             print(linhas, end= "")
@@ -295,7 +502,7 @@ def menu5():
        
 def menu6():
     while(True):
-        with open('projeto//estoque.txt', "r") as arquivo:
+        with open('projeto//estoqueteste.txt', "r") as arquivo:
             listaProdutos= arquivo.readlines()
             for linhas in listaProdutos:
                 print(linhas, end="")
@@ -332,8 +539,8 @@ def menu6():
                     novoEstoque.write(arquivoNovo)
                 #with open('projeto//estoque.txt', "w") as novoEstoque:
                     #novoEstoque.write(arquivoNovo)
-                with open('projeto//vendas.txt', "a") as vendas:
-                    vendas.write(f"Produto:{produto}, Vendidos:{vendidos}, Valor:{precoProduto}, Valor total: {float(precoProduto) * vendidos} reais\n")
+                with open('projeto//vendasteste.txt', "a") as vendas:
+                    vendas.write(f"Produto: {produto} ,Vendidos: {vendidos} ,Valor: {precoProduto} ,Valor total: {float(precoProduto) * vendidos} reais\n")
                 break
         else:
             print("o produto não está cadastrado")
@@ -363,7 +570,7 @@ def menu6():
     return   
 def menu7():
     print("Relatório de vendas:")
-    with open('projeto//vendas.txt', "r") as vendas:
+    with open('projeto//vendasteste.txt', "r") as vendas:
         linha = vendas.readlines()
         for linhas in linha:
             print(linhas, end = "")
