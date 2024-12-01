@@ -129,7 +129,7 @@ def atualizarClientes():
                 if(acumulador % 3 == 0):
                     arquivoNovo += "\n"
                 acumulador += 1
-            print(arquivoNovo)
+            print("Cliente atualizado")
             with open('projeto//clientes.txt', "w")as arquivoCliente:
                 arquivoCliente.write(arquivoNovo)
             break
@@ -149,7 +149,7 @@ def atualizarClientes():
                 if(acumulador % 3 == 0):
                     arquivoNovo += "\n"
                 acumulador += 1
-            print(arquivoNovo)
+            print("Cliente atualizado")
             with open('projeto//clientes.txt', "w")as arquivoCliente:
                 arquivoCliente.write(arquivoNovo)
             break
@@ -169,7 +169,7 @@ def atualizarClientes():
                 if(acumulador % 3 == 0):
                     arquivoNovo += "\n"
                 acumulador += 1
-            print(arquivoNovo)
+            print("Cliente atualizado")
             with open('projeto//clientes.txt', "w")as arquivoCliente:
                 arquivoCliente.write(arquivoNovo)
             break
@@ -210,7 +210,7 @@ def excluirCliente():
             if(acumulador % 3 == 0):
                 arquivoNovo += "\n"
             acumulador += 1
-        print(arquivoNovo)
+        print("Cliente excluído")
         with open('projeto//clientes.txt', "w") as arquivoClientes:
             arquivoClientes.write(arquivoNovo)
         break
@@ -303,7 +303,6 @@ def excluirVenda():
             if(acumulador2 % 3 == 0):
                 arquivoNovo2 += "\n"
             acumulador2 += 1
-        print(arquivoNovo2)
         with open('projeto//estoque.txt', "w") as novoEstoque:
             novoEstoque.write(arquivoNovo2)
         break
@@ -529,7 +528,6 @@ def cadastrarCliente():
         elif(nome.isalpha() != True):
             print("Digite um nome")
 
-
         print("""1 - Continuar
 2 - Voltar
 """)
@@ -542,7 +540,6 @@ def cadastrarCliente():
             else:
                 print("Digite uma opção")
         
-
     print("""Deseja voltar para o menu?
 1- Sim
 2- Não""")
@@ -677,7 +674,7 @@ def cadastrarVenda():
                     if(acumulador % 3 == 0):
                         arquivoNovo += "\n"
                     acumulador += 1
-                print(arquivoNovo)
+                print("Venda cadastrada")
                 with open('projeto//estoque.txt', "w") as novoEstoque:
                     novoEstoque.write(arquivoNovo)
                 with open('projeto//vendas.txt', "a") as vendas:
