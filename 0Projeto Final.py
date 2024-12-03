@@ -493,7 +493,7 @@ def atualizarVendas():
     while(True):
         voltar = input().lower()
         if (voltar == "1" or voltar == "sim"):
-            return(menuEstoque())
+            return(menuVendas())
         elif(voltar == "2" or voltar == "não" or voltar == "nao"):
             print("Você saiu!")
             break
@@ -665,7 +665,6 @@ def cadastrarVenda():
                 vendidos = int(input())
                 listaDividida.pop(posicaoEstoque)
                 listaDividida.insert(posicaoEstoque, str(int(qtdEstoque) - vendidos))
-                print(listaDividida)
                 arquivoNovo = ""
                 acumulador = 1
                 for linha in listaDividida:
