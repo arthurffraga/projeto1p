@@ -1,1 +1,6 @@
-Flocos 2.5 10
+morango 2.5 10 
+flocos 2.5 8 
+maracuja 2.5 8 
+goiaba 2.5 7 
+manga 2.5 15 
+laranja 2.5 10 
