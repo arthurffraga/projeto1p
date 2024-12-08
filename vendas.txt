@@ -1,0 +1,5 @@
+Produto: flocos ,Vendidos: 2 ,Valor: 2.5 ,Valor total: 5.0 reais
+Produto: goiaba ,Vendidos: 3 ,Valor: 2.5 ,Valor total: 7.5 reais 
+Produto: goiaba ,Vendidos: 5 ,Valor: 2.5 ,Valor total: 12.5 reais
+Produto: maracuja ,Vendidos: 2 ,Valor: 2.5 ,Valor total: 5.0 reais
+Produto: laranja ,Vendidos: 5 ,Valor: 2.5 ,Valor total: 12.5 reais
