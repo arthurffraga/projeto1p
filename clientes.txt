@@ -1,3 +1,1 @@
-Arthur, 20030040000, 20
-Pedro, 30040050000, 21
-Nome: Marcus, CPf: 20030040022, Idade: 19
+
