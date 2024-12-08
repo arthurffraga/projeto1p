@@ -79,7 +79,8 @@ def menuVendas():
 3 - Voltar ao menu principal
 4 - Atualizar
 5 - Excluir
-6 - Sair """)
+6 - Relatorio do total de vendas
+7 - Sair """)
         opcao = input().lower()
         if (opcao == "1" or opcao == "cadastrar venda"):
             return(cadastrarVenda())
@@ -90,8 +91,10 @@ def menuVendas():
         elif(opcao == "4" or opcao == "atualizar"):
             return(atualizarVendas())
         elif(opcao == "5" or opcao == "excluir"):
-            return(excluirVenda())        
-        elif(opcao == "6" or opcao == "sair"):
+            return(excluirVenda())
+        elif(opcao == "6"):
+            return(relatorioVendasTotal())            
+        elif(opcao == "7" or opcao == "sair"):
             print("Você saiu!")
             break
         else:
@@ -423,6 +426,7 @@ def atualizarVendas():
         if (opcao == "produto" or opcao == "1"):
             print("Digite o novo produto:")
             novaQtd= input().lower()
+            antigoProduto = listaDividida[1]
             listaDividida.pop(1)
             listaDividida.insert(1, novaQtd)
             listaNova = ""
@@ -439,6 +443,33 @@ def atualizarVendas():
             print("Venda atualizada!")
             with open('projeto//vendas.txt', "w")as arquivoCliente:
                 arquivoCliente.write(arquivoNovo)
+            with open('projeto//estoque.txt', "r") as rEstoque:
+                estoque = rEstoque.readlines()
+            listaStr = ""
+            for i in estoque:
+                listaStr += i
+            qtdInicial = listaDividida[3]
+            listaDividida2 = listaStr.split()
+            posicaoProduto2 = listaDividida2.index(antigoProduto)
+            posicaoEstoqueInicial = posicaoProduto2 + 2
+            valorEstoque = listaDividida2 [posicaoEstoqueInicial]
+            valorNovo = str((int(valorEstoque) + int(qtdInicial)))
+            listaDividida2[posicaoEstoqueInicial] = valorNovo
+            posicaoProduto3 = listaDividida2.index(novaQtd)
+            posicaoEstoqueInicial3 = posicaoProduto3 + 2
+            valorEstoque3 = listaDividida2 [posicaoEstoqueInicial3]
+            valorNovo3 = str((int(valorEstoque3) - int(qtdInicial)))
+            listaDividida2[posicaoEstoqueInicial3] = valorNovo3         
+            arquivoNovo2 = ""
+            acumulador2 = 1
+            for linha2 in listaDividida2:
+                arquivoNovo2 += linha2
+                arquivoNovo2 += " "
+                if(acumulador2 % 3 == 0):
+                    arquivoNovo2 += "\n"
+                acumulador2 += 1
+            with open('projeto//estoque.txt', "w") as novoEstoque:
+                novoEstoque.write(arquivoNovo2)
             break
         elif(opcao == "2" or opcao == "vendidos"):
             print("Digite quantos foram vendidos:")
@@ -584,13 +615,13 @@ def cadastrarProduto():
         precoProduto = float(input())
         print("Digite a quantidade do produto:")
         qtdProduto = int(input())
-        if (qtdProduto > 0):
+        if (qtdProduto > 10 and precoProduto > 0):
             with open('projeto//estoque.txt', "a") as arquivo:
                 arquivo.write(f"{produto} {precoProduto} {qtdProduto}\n")
                 print("Produto cadastrado")
                 break
         else:
-            print("O produto cadastrado não tem a quantidade suficiente")
+            print("O produto não pode ser cadastrado ")
         print("")
         print("""1 - Continuar
 2 - Voltar
@@ -618,7 +649,35 @@ def cadastrarProduto():
             print("Digite uma opção:")
     return
        
-
+def relatorioVendasTotal():
+    with open('projeto//vendas.txt', "r") as arquivoVendas:
+        listaVendas = arquivoVendas.readlines()
+    listaStr = ""
+    for i in listaVendas:
+        listaStr += i
+    listaDividida = listaStr.split()
+    acumulador = 1
+    valorTotal = 0
+    for j in listaDividida:
+        acumulador += 1
+        if (acumulador % 10 == 0):
+            valorTotal += float(j)
+    print("")
+    print(f"O valor total das vendas foi: {valorTotal} reais")
+    print("")
+    print("""Deseja voltar para o menu?
+1- Sim
+2- Não""")
+    while(True):
+        voltar = input().lower()
+        if (voltar == "1" or voltar == "sim"):
+            return(menuVendas())
+        elif(voltar == "2" or voltar == "não" or voltar == "nao"):
+            print("Você saiu!")
+            break
+        else:
+            print("Digite uma opção:")
+    return
 def estoque():
     print("")
     print("Estoque:")
